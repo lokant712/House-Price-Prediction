@@ -79,7 +79,8 @@ def plot_outliers_box(df, num_features, dataset_name, output_dir="outputs/figure
     df_norm = (df[features_to_plot] - df[features_to_plot].mean()) / df[features_to_plot].std()
     
     plt.figure(figsize=(12, 6))
-    sns.boxplot(data=df_norm, orient="h", palette="Set2")
+    df_melt = df_norm.melt(var_name='Feature', value_name='Value')
+    sns.boxplot(data=df_melt, x='Value', y='Feature', hue='Feature', palette="Set2", legend=False)
     plt.title(f"Box Plot of Standardized Features (Outlier Analysis) - {dataset_name.capitalize()}", fontweight='bold')
     plt.xlabel("Standardized Value (Z-Score)")
     plt.tight_layout()
@@ -200,7 +201,7 @@ def plot_feature_importance(model, feature_names, model_name, dataset_name, outp
     imp_df_plot = imp_df.head(15)
     
     plt.figure(figsize=(10, 6))
-    sns.barplot(data=imp_df_plot, x='Importance', y='Feature', palette="viridis")
+    sns.barplot(data=imp_df_plot, x='Importance', y='Feature', hue='Feature', palette="viridis", legend=False)
     plt.title(f"{title}\n({dataset_name.capitalize()} Dataset)", fontweight='bold')
     plt.xlabel("Importance / Coefficient Magnitude")
     plt.ylabel("Feature Name")
@@ -221,13 +222,13 @@ def plot_model_comparison(metrics_df, dataset_name, output_dir="outputs/figures"
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
     
     # R2 Comparison
-    sns.barplot(data=metrics_df, x='R2', y='Model', ax=axes[0], palette="Blues_d")
+    sns.barplot(data=metrics_df, x='R2', y='Model', hue='Model', ax=axes[0], palette="Blues_d", legend=False)
     axes[0].set_title(f"Model R² Score Comparison (Higher is Better)\n{dataset_name.capitalize()} Dataset", fontweight='bold')
     axes[0].set_xlabel("R² Score")
     axes[0].set_xlim(0, 1.0)
     
     # RMSE Comparison
-    sns.barplot(data=metrics_df, x='RMSE', y='Model', ax=axes[1], palette="Oranges_d")
+    sns.barplot(data=metrics_df, x='RMSE', y='Model', hue='Model', ax=axes[1], palette="Oranges_d", legend=False)
     axes[1].set_title(f"Model RMSE Comparison (Lower is Better)\n{dataset_name.capitalize()} Dataset", fontweight='bold')
     axes[1].set_xlabel("Root Mean Squared Error")
     

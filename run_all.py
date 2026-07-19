@@ -79,7 +79,7 @@ def main():
             sys.exit(1)
             
     print("\n==================================================")
-    print("ALL PIPELINE STEPS COMPLETED SUCCESSFULY!")
+    print("ALL PIPELINE STEPS COMPLETED SUCCESSFULLY!")
     print("==================================================")
 
 if __name__ == '__main__':

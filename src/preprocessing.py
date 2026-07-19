@@ -76,10 +76,17 @@ def get_preprocessing_pipeline(num_features, cat_features):
         ('scaler', StandardScaler())
     ])
     
-    cat_pipeline = Pipeline([
-        ('imputer', SimpleImputer(strategy='most_frequent')),
-        ('onehot', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
-    ])
+    try:
+        cat_pipeline = Pipeline([
+            ('imputer', SimpleImputer(strategy='most_frequent')),
+            ('onehot', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
+        ])
+    except TypeError:
+        # Fallback for scikit-learn < 1.2 which uses `sparse` instead of `sparse_output`
+        cat_pipeline = Pipeline([
+            ('imputer', SimpleImputer(strategy='most_frequent')),
+            ('onehot', OneHotEncoder(handle_unknown='ignore', sparse=False))
+        ])
     
     preprocessor = ColumnTransformer(
         transformers=[

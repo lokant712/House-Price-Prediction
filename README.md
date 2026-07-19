@@ -1,10 +1,4 @@
 # House Price Prediction using Regression Models
-**Subject:** Advanced Predictive Analytics (MDI3003) — Laboratory Project  
-**Student:** Lokanth S (Reg. No: 23MID0037)  
-**Faculty Coordinator:** Dr. Durgesh Kumar  
-**Institution:** Vellore Institute of Technology  
-
----
 
 ## Project Overview
 This repository contains the complete, end-to-end laboratory project implementing machine learning pipelines to predict residential house prices. The project conducts a comparative empirical evaluation of five distinct regression algorithms across three diverse real-world datasets:

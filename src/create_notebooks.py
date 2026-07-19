@@ -131,7 +131,7 @@ def create_california_notebook():
                     "# Correlation Heatmap\n",
                     "num_features, _ = get_feature_lists(df, target_col, 'california')\n",
                     "plt.figure(figsize=(10, 8))\n",
-                    "sns.heatmap(df[num_features + [target_col]].corr(), annot=True, cmap='coolwarm', fmt='.2f')\n",
+                    "sns.heatmap(df[num_features + [target_col]].corr(numeric_only=True), annot=True, cmap='coolwarm', fmt='.2f')\n",
                     "plt.title(\"Correlation Matrix\")\n",
                     "plt.show()"
                 ]
@@ -437,7 +437,7 @@ def create_uci_notebook():
                 "source": [
                     "# Correlation Matrix\n",
                     "plt.figure(figsize=(8, 6))\n",
-                    "sns.heatmap(df.corr(), annot=True, cmap='coolwarm', fmt='.2f')\n",
+                    "sns.heatmap(df.corr(numeric_only=True), annot=True, cmap='coolwarm', fmt='.2f')\n",
                     "plt.title(\"Correlation Heatmap\")\n",
                     "plt.show()"
                 ]
