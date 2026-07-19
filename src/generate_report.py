@@ -336,7 +336,7 @@ def generate_report():
         ("Registration Number:", "23MID0037"),
         ("Course Code & Name:", "MDI3003 - Advanced Predictive Analytics"),
         ("Faculty Coordinator:", "Dr. Durgesh Kumar"),
-        ("GitHub Repository Link:", "https://github.com/LokanthS/House-Price-Prediction")
+        ("GitHub Repository Link:", "https://github.com/lokant712/House-Price-Prediction")
     ]
     for idx, (label, val) in enumerate(details):
         r_cells = tbl.rows[idx].cells
@@ -412,7 +412,7 @@ def generate_report():
     
     add_heading_2(doc, "1.5 GitHub Repository and Code Organization")
     add_body_text(doc, "In accordance with academic instructions to separate implementation from documentation, all source code and assets are hosted in the following repository:")
-    add_body_text(doc, "URL: https://github.com/LokanthS/House-Price-Prediction", bold_prefix="GitHub Repository: ")
+    add_body_text(doc, "URL: https://github.com/lokant712/House-Price-Prediction", bold_prefix="GitHub Repository: ")
     add_body_text(doc, "The repository is structured for immediate execution and contains the following components:")
     add_bullet_point(doc, "Complete ML Pipeline: ", "Fully modularized preprocessing, training, evaluation, and plotting modules under the src/ directory.")
     add_bullet_point(doc, "Jupyter Notebooks: ", "Interactive notebooks (california.ipynb, ames.ipynb, uci.ipynb) containing comprehensive EDA and pipeline validations.")

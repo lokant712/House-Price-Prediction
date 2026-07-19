@@ -74,7 +74,7 @@ House-Price-Prediction/
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/LokanthS/House-Price-Prediction.git
+   git clone https://github.com/lokant712/House-Price-Prediction.git
    cd House-Price-Prediction
    ```
 
