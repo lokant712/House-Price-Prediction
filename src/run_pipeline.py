@@ -12,7 +12,8 @@ from preprocessing import (
 )
 from models import (
     train_simple_linear_regression, train_multiple_linear_regression,
-    tune_decision_tree, tune_random_forest, tune_gradient_boosting
+    train_generalized_linear_model, tune_decision_tree,
+    tune_random_forest, tune_gradient_boosting, save_model
 )
 from evaluation import evaluate_model
 from visualization import (
@@ -89,6 +90,10 @@ def run_dataset_pipeline(dataset_name):
     else:
         y_train_fit = y_train_orig.copy()
         
+    # Save Preprocessor Artifact
+    ensure_dirs(["outputs/models"])
+    save_model(preprocessor, f"outputs/models/{dataset_name}_preprocessor.joblib")
+    
     # 7. Model Training & Tuning
     models_dict = {}
     
@@ -100,17 +105,34 @@ def run_dataset_pipeline(dataset_name):
     mlr = train_multiple_linear_regression(X_train_proc, y_train_fit)
     models_dict['Multiple Linear Regression'] = mlr
     
-    # Model 3: Decision Tree
+    # Model 3: Generalized Linear Model (GLM/GI)
+    glm = train_generalized_linear_model(X_train_proc, y_train_fit)
+    models_dict['Generalized Linear Model (GLM)'] = glm
+    
+    # Model 4: Decision Tree
     dt = tune_decision_tree(X_train_proc, y_train_fit, cv=5)
     models_dict['Decision Tree Regressor'] = dt
     
-    # Model 4: Random Forest
+    # Model 5: Random Forest
     rf = tune_random_forest(X_train_proc, y_train_fit, cv=5)
     models_dict['Random Forest Regressor'] = rf
     
-    # Model 5: Gradient Boosting
+    # Model 6: Gradient Boosting
     gb = tune_gradient_boosting(X_train_proc, y_train_fit, cv=5)
     models_dict['Gradient Boosting Regressor'] = gb
+
+    # Save trained model artifacts
+    key_mapping = {
+        'Simple Linear Regression': 'simple_linear',
+        'Multiple Linear Regression': 'multiple_linear',
+        'Generalized Linear Model (GLM)': 'glm',
+        'Decision Tree Regressor': 'decision_tree',
+        'Random Forest Regressor': 'random_forest',
+        'Gradient Boosting Regressor': 'gradient_boosting'
+    }
+    for m_name, m_obj in models_dict.items():
+        save_model(m_obj, f"outputs/models/{dataset_name}_{key_mapping[m_name]}.joblib")
+
     
     # 8. Evaluation and Plotting
     metrics_list = []

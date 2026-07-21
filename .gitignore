@@ -37,7 +37,11 @@ desktop.ini
 *.tmp
 *.temp
 
-# Large binary outputs (optional: comment out if you want to include them)
-# outputs/figures/
-# outputs/tables/
-# outputs/metrics/
+# Generated report binaries (kept private for local assignment submission)
+reports/
+*.docx
+*.pdf
+
+# Saved model artifacts
+outputs/models/
+

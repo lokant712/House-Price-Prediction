@@ -1,7 +1,8 @@
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, TweedieRegressor
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.model_selection import GridSearchCV
+import joblib
 import logging
 
 def train_simple_linear_regression(X_train, y_train):
@@ -17,6 +18,13 @@ def train_multiple_linear_regression(X_train, y_train):
     """Trains a Multiple Linear Regression model using all preprocessed features."""
     logging.info("Training Multiple Linear Regression (using all features)...")
     model = LinearRegression()
+    model.fit(X_train, y_train)
+    return model
+
+def train_generalized_linear_model(X_train, y_train):
+    """Trains a Generalized Linear Model (GLM/GI) using Tweedie regression with log-link."""
+    logging.info("Training Generalized Linear Model (GLM/GI)...")
+    model = TweedieRegressor(power=1.5, link='log', max_iter=500)
     model.fit(X_train, y_train)
     return model
 
@@ -83,3 +91,14 @@ def tune_gradient_boosting(X_train, y_train, cv=5):
     grid_search.fit(X_train, y_train)
     logging.info(f"Gradient Boosting Best Parameters: {grid_search.best_params_}")
     return grid_search.best_estimator_
+
+def save_model(model_obj, filepath):
+    """Saves a trained model or pipeline object using joblib."""
+    joblib.dump(model_obj, filepath)
+    logging.info(f"Saved model artifact to {filepath}")
+
+def load_model(filepath):
+    """Loads a trained model or pipeline object using joblib."""
+    logging.info(f"Loading model artifact from {filepath}...")
+    return joblib.load(filepath)
+
